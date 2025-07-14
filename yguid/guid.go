@@ -83,7 +83,7 @@ func NewWith(unixSec, mark uint32) GUID {
 	endian.PutUint32(id[:4], unixSec)
 	endian.PutUint32(id[4:8], mark)
 	endian.PutUint16(id[8:10], getSerial())
-	endian.PutUint16(id[10:12], yrand.Uint16())
+	endian.PutUint16(id[10:], yrand.Uint16())
 	return id
 }
 
