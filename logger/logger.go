@@ -25,3 +25,8 @@ func init() {
 func DefaultLog() Logger {
 	return entry
 }
+
+// SetDefault set default log
+func SetDefault(v Logger) {
+	entry = v
+}
