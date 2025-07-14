@@ -52,16 +52,16 @@ func EndDay(t time.Time, n ...int) time.Time {
 	return time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 999999999, t.Location())
 }
 
-// BeginMonth return begin with month
-func BeginMonth(t time.Time, n ...int) time.Time {
+// BeginMon return begin with month
+func BeginMon(t time.Time, n ...int) time.Time {
 	if len(n) != 0 {
 		t = t.AddDate(0, n[0], 0)
 	}
 	return time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, t.Location())
 }
 
-// EndMonth return end with month
-func EndMonth(t time.Time, n ...int) time.Time {
+// EndMon return end with month
+func EndMon(t time.Time, n ...int) time.Time {
 	if len(n) != 0 {
 		t = t.AddDate(0, n[0], 0)
 	}
