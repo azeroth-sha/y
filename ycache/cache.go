@@ -160,7 +160,7 @@ func (c *cache) getShard(k string) *shard {
 func (c *cache) ticker() {
 	dur := c.opts.interval
 	if dur <= 0 {
-		dur = DefaultInterval
+		return
 	}
 	tk := time.NewTicker(dur)
 	defer tk.Stop()
