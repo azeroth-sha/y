@@ -4,7 +4,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/azeroth-sha/y/logger"
+	"github.com/azeroth-sha/y/ylog"
 )
 
 const DefaultInterval = time.Second
@@ -18,7 +18,7 @@ type options struct {
 	interval  time.Duration
 	expire    ExpireFun
 	shardSize int
-	log       logger.Logger
+	log       ylog.Logger
 }
 
 // WithInterval set expire check interval
@@ -49,10 +49,10 @@ func WithShardSize(count int) Option {
 }
 
 // WithLogger set logger
-func WithLogger(l logger.Logger) Option {
+func WithLogger(l ylog.Logger) Option {
 	return func(opts *options) {
 		if l == nil {
-			l = logger.DefaultLog()
+			l = ylog.DefaultLog()
 		}
 		opts.log = l
 	}

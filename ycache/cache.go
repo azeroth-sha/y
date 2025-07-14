@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/azeroth-sha/y/internal"
-	"github.com/azeroth-sha/y/logger"
+	"github.com/azeroth-sha/y/ylog"
 )
 
 // Cache interface
@@ -127,7 +127,7 @@ func New(opts ...Option) Cache {
 		interval:  DefaultInterval,
 		expire:    nil,
 		shardSize: runtime.NumCPU() * 4,
-		log:       logger.DefaultLog(),
+		log:       ylog.DefaultLog(),
 	}
 	for _, opt := range opts {
 		opt(cnf)

@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/azeroth-sha/y/logger"
+	"github.com/azeroth-sha/y/ylog"
 )
 
 var (
@@ -99,7 +99,7 @@ func New(opts ...Option) Grace {
 		mu:     new(sync.Mutex),
 		opt: &option{
 			dur: time.Second,
-			log: logger.DefaultLog(),
+			log: ylog.DefaultLog(),
 		},
 		running: 0,
 		srv:     make([]Service, 0),

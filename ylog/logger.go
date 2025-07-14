@@ -1,4 +1,4 @@
-package logger
+package ylog
 
 import (
 	"github.com/sirupsen/logrus"

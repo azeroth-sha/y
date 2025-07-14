@@ -3,14 +3,14 @@ package ygrace
 import (
 	"time"
 
-	"github.com/azeroth-sha/y/logger"
+	"github.com/azeroth-sha/y/ylog"
 )
 
 type Service interface {
 	Name() string
 	Priority() int
-	Serv(logger.Logger) error
-	Down(logger.Logger) error
+	Serv(ylog.Logger) error
+	Down(ylog.Logger) error
 }
 
 type ServWait interface {
