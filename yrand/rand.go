@@ -6,6 +6,7 @@ import (
 	"io"
 	"sync"
 
+	"github.com/azeroth-sha/y/internal"
 	"github.com/azeroth-sha/y/ybuff"
 	"github.com/azeroth-sha/y/yconst"
 )
@@ -131,7 +132,7 @@ func CharsBy(n int, dict []byte) []byte {
 }
 
 func StringBy(n int, dict string) string {
-	return string(CharsBy(n, []byte(dict)))
+	return string(CharsBy(n, internal.ToBytes(dict)))
 }
 
 /*
@@ -141,7 +142,7 @@ func StringBy(n int, dict string) string {
 var (
 	reader   = rand.Reader
 	readerMu = new(sync.Mutex)
-	capLen   = 4 << 10
+	capLen   = 0xFF
 	pool     = sync.Pool{New: newBuf}
 )
 
