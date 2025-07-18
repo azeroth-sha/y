@@ -8,6 +8,15 @@ import (
 	"github.com/azeroth-sha/y/yconst"
 )
 
+// Format convert any to string.
+func Format(v any, f ...string) string {
+	t := MustToTime(v)
+	if len(f) > 0 {
+		return t.Format(f[0])
+	}
+	return t.Format(RFC3339)
+}
+
 // ToTime convert any to time.Time.
 func ToTime(v any) (t time.Time, err error) {
 	switch vv := v.(type) {
@@ -48,7 +57,7 @@ func ToTime(v any) (t time.Time, err error) {
 	case string:
 		return ParseTime(vv)
 	}
-	return t, nil
+	return t.In(time.Local), nil
 }
 
 // MustToTime convert any to time.Time and lose error.
