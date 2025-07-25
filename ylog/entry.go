@@ -95,7 +95,8 @@ func (e *Entry) wrtBuf(b *bytes.Buffer) {
 	if b == nil {
 		return
 	}
-	_, _ = fmt.Fprint(e.output, b.String())
+	_, _ = b.WriteString("\r\n")
+	_, _ = b.WriteTo(e.output)
 }
 
 func (e *Entry) outBuf(l Level, args ...any) *bytes.Buffer {
@@ -104,7 +105,8 @@ func (e *Entry) outBuf(l Level, args ...any) *bytes.Buffer {
 	}
 	buf := ybuff.Get()
 	e.wrtPre(buf, l)
-	_, _ = fmt.Fprint(buf, fmt.Sprintf(`message=%s`, fmt.Sprint(args...)))
+	buf.WriteString(`msg=`)
+	buf.WriteString(fmt.Sprint(args...))
 	return buf
 }
 
@@ -114,22 +116,29 @@ func (e *Entry) outFmtBuf(l Level, format string, args ...any) *bytes.Buffer {
 	}
 	buf := ybuff.Get()
 	e.wrtPre(buf, l)
-	_, _ = fmt.Fprintf(buf, fmt.Sprintf(`message=%s`, fmt.Sprintf(format, args...)))
+	buf.WriteString(`msg=`)
+	buf.WriteString(fmt.Sprintf(format, args...))
 	return buf
 }
 
 func (e *Entry) wrtPre(b *bytes.Buffer, l Level) {
-	_, _ = fmt.Fprintf(b, "level=%s ", l.String())
+	b.WriteString(`level=`)
+	b.WriteString(l.String())
+	b.WriteString(` `)
 	if e.outTime {
-		_, _ = fmt.Fprintf(b, "time=%s ", time.Now().Format(e.timeFmt))
+		b.WriteString(`time=`)
+		b.WriteString(time.Now().Format(e.timeFmt))
+		b.WriteString(` `)
 	}
 	if e.outFile {
 		name, line := e.callInfo()
+		b.WriteString(`file=`)
+		b.WriteString(name)
 		if e.fileLin {
-			_, _ = fmt.Fprintf(b, "file=%s:%d ", name, line)
-		} else {
-			_, _ = fmt.Fprintf(b, "file=%s ", name)
+			b.WriteString(`:`)
+			b.WriteString(fmt.Sprint(line))
 		}
+		b.WriteString(` `)
 	}
 }
 
