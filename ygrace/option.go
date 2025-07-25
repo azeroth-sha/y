@@ -15,15 +15,16 @@ type Option func(*option)
 
 func WithDuration(d time.Duration) Option {
 	return func(o *option) {
-		o.dur = d
+		if o.dur = d; o.dur < 0 {
+			o.dur = 0
+		}
 	}
 }
 
 func WithLogger(l ylog.Logger) Option {
 	return func(o *option) {
-		if l == nil {
-			l = ylog.DefaultLog()
+		if o.log = l; o.log == nil {
+			o.log = ylog.NewLogger()
 		}
-		o.log = l
 	}
 }
