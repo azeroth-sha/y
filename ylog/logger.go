@@ -1,7 +1,28 @@
 package ylog
 
-import (
-	"github.com/sirupsen/logrus"
+// Level log level
+type Level uint8
+
+func (l Level) String() string {
+	switch l {
+	case LevelError:
+		return `Error`
+	case LevelWarn:
+		return `Warn`
+	case LevelInfo:
+		return `Info`
+	case LevelDebug:
+		return `Debug`
+	default:
+		return `Unknown`
+	}
+}
+
+const (
+	LevelError Level = iota + 1
+	LevelWarn
+	LevelInfo
+	LevelDebug
 )
 
 type Logger interface {
@@ -18,7 +39,7 @@ type Logger interface {
 var entry Logger
 
 func init() {
-	entry = logrus.New()
+	entry = NewLogger()
 }
 
 // DefaultLog default log
