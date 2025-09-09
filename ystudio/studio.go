@@ -158,9 +158,10 @@ func (s *studio) SetJob(name string, hand WorkHandler, capSize int) error {
 		delete(s.event, name)
 		delete(s.jobs, name)
 	}
-	s.event[name] = make(chan Event, capSize)
+	ch := make(chan Event, capSize)
+	s.event[name] = ch
 	s.jobs[name] = hand
-	go s.working(name)
+	go s.working(ch, hand)
 	return nil
 }
 
@@ -227,9 +228,9 @@ func New(opts ...any) Studio {
   Package private
 */
 
-func (s *studio) working(name string) {
-	ch := s.event[name]
-	fun := s.jobs[name]
+func (s *studio) working(ch chan Event, fun WorkHandler) {
+	//ch := s.event[name]
+	//fun := s.jobs[name]
 EXIT:
 	for {
 		select {
