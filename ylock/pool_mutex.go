@@ -1,7 +1,6 @@
 package ylock
 
 import (
-	"runtime"
 	"sync"
 )
 
@@ -14,7 +13,7 @@ type pMutex struct {
 
 func (h *pMutex) init() {
 	if h.size <= 0 {
-		h.size = runtime.NumCPU() * 2
+		h.size = defaultSize
 	}
 	h.dict = make(map[string][2]chan *sync.Mutex)
 }

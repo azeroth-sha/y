@@ -4,10 +4,10 @@ import (
 	"runtime"
 )
 
-var cnt int
+var defaultSize int
 
 func init() {
-	cnt = runtime.NumCPU() * 2
+	defaultSize = runtime.NumCPU() * 2
 }
 
 type Locker interface {

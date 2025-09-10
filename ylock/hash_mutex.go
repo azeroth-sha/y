@@ -17,7 +17,7 @@ type hMutex struct {
 
 func (h *hMutex) init() {
 	if h.size <= 0 {
-		h.size = uint32(cnt)
+		h.size = uint32(defaultSize)
 	}
 	h.dict = make(map[uint32]*sync.Mutex)
 }
